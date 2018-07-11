@@ -17,13 +17,20 @@ class FirebaseUserRepository implements UserRepository {
 
   @override
   Future<UserEntity> login() async {
-    final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
-    final GoogleSignInAuthentication googleAuth =
+    var firebaseUser;
+    try {
+      final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
+      print('User is: ${googleUser}');
+      final GoogleSignInAuthentication googleAuth =
         await googleUser.authentication;
-    final firebaseUser = await auth.signInWithGoogle(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
+      firebaseUser = await auth.signInWithGoogle(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+    } catch (e) {
+      print('Google Login Error: ${e.toString()}');
+      return;
+    }
 
     return UserEntity(
       id: firebaseUser.uid,
