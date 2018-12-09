@@ -70,13 +70,11 @@ class TodosListBloc {
     // so the Stream can be listened to multiple times
     final visibleTodosController = BehaviorSubject<List<Todo>>();
 
-    Observable
-        .combineLatest2<List<Todo>, VisibilityFilter, List<Todo>>(
-          interactor.todos,
-          updateFilterController.stream,
-          _filterTodos,
-        )
-        .pipe(visibleTodosController);
+    Observable.combineLatest2<List<Todo>, VisibilityFilter, List<Todo>>(
+      interactor.todos,
+      updateFilterController.stream,
+      _filterTodos,
+    ).pipe(visibleTodosController);
 
     return TodosListBloc._(
       addTodoController,

@@ -5,7 +5,6 @@ enum ExtraAction { toggleAll, clearCompleted }
 
 Widget buildExtraActionsMenu<TMsg>(
     void onSelected(ExtraAction action), bool allComplete) {
-
   return new PopupMenuButton<ExtraAction>(
     key: ArchSampleKeys.extraActionsButton,
     onSelected: onSelected,

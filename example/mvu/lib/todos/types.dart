@@ -7,8 +7,6 @@ import 'package:todos_repository/todos_repository.dart';
 
 part 'types.g.dart';
 
-
-
 abstract class TodosModel implements Built<TodosModel, TodosModelBuilder> {
   bool get isLoading;
   BuiltList<TodoModel> get items;

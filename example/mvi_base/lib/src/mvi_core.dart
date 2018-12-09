@@ -37,8 +37,8 @@ class MviPresenter<ViewModel> extends Stream<ViewModel>
   void setUp() {}
 
   @mustCallSuper
-  Future tearDown() => Future
-      .wait([_subject.close()]..addAll(subscriptions.map((s) => s.cancel())));
+  Future tearDown() => Future.wait(
+      [_subject.close()]..addAll(subscriptions.map((s) => s.cancel())));
 
   static _createSubject<ViewState>(
     Stream<ViewState> model,

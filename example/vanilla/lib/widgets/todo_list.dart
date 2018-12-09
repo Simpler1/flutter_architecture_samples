@@ -71,22 +71,22 @@ class TodoList extends StatelessWidget {
     removeTodo(todo);
 
     Scaffold.of(context).showSnackBar(
-          SnackBar(
-            key: ArchSampleKeys.snackbar,
-            duration: Duration(seconds: 2),
-            backgroundColor: Theme.of(context).backgroundColor,
-            content: Text(
-              ArchSampleLocalizations.of(context).todoDeleted(todo.task),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-            action: SnackBarAction(
-              label: ArchSampleLocalizations.of(context).undo,
-              onPressed: () {
-                addTodo(todo);
-              },
-            ),
-          ),
-        );
+      SnackBar(
+        key: ArchSampleKeys.snackbar,
+        duration: Duration(seconds: 2),
+        backgroundColor: Theme.of(context).backgroundColor,
+        content: Text(
+          ArchSampleLocalizations.of(context).todoDeleted(todo.task),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
+        action: SnackBarAction(
+          label: ArchSampleLocalizations.of(context).undo,
+          onPressed: () {
+            addTodo(todo);
+          },
+        ),
+      ),
+    );
   }
 }
