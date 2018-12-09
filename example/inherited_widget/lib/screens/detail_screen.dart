@@ -89,8 +89,9 @@ class DetailScreen extends StatelessWidget {
             MaterialPageRoute(
               builder: (context) {
                 return AddEditScreen(
-                  todo: todo,
                   key: ArchSampleKeys.editTodoScreen,
+                  todo: todo,
+
                 );
               },
             ),

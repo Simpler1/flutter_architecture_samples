@@ -16,12 +16,12 @@ class FilterButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final defaultStyle = Theme.of(context).textTheme.body1;
-    final activeStyle = Theme.of(context)
-        .textTheme
-        .body1
-        .copyWith(color: Theme.of(context).accentColor);
-    final button = new _Button(
+    final theme = Theme.of(context);
+    final defaultStyle = theme.textTheme.body1;
+    final activeStyle = theme.textTheme.body1.copyWith(
+      color: theme.accentColor,
+    );
+    final button = _Button(
       onSelected: onSelected,
       activeFilter: activeFilter,
       activeStyle: activeStyle,
@@ -56,7 +56,8 @@ class _Button extends StatelessWidget {
       key: ArchSampleKeys.filterButton,
       tooltip: ArchSampleLocalizations.of(context).filterTodos,
       onSelected: onSelected,
-      itemBuilder: (BuildContext context) => <PopupMenuItem<VisibilityFilter>>[
+      itemBuilder: (BuildContext context) {
+        return <PopupMenuItem<VisibilityFilter>>[
             PopupMenuItem<VisibilityFilter>(
               key: ArchSampleKeys.allFilter,
               value: VisibilityFilter.all,
@@ -87,7 +88,8 @@ class _Button extends StatelessWidget {
                     : defaultStyle,
               ),
             ),
-          ],
+        ];
+      },
       icon: Icon(Icons.filter_list),
     );
   }

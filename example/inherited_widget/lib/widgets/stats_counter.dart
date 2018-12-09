@@ -13,8 +13,8 @@ class StatsCounter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final container = StateContainer.of(context);
-    final numCompleted = container.state.numCompleted;
     final numActive = container.state.numActive;
+    final numCompleted = container.state.numCompleted;
 
     return Center(
       child: Column(

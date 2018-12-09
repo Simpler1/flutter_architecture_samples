@@ -11,8 +11,10 @@ class StatsCounter extends StatelessWidget {
   final int numActive;
   final int numCompleted;
 
-  StatsCounter({@required this.numActive, @required this.numCompleted})
-      : super(key: ArchSampleKeys.statsCounter);
+  StatsCounter({
+    @required this.numActive,
+    @required this.numCompleted,
+  }) : super(key: ArchSampleKeys.statsCounter);
 
   @override
   Widget build(BuildContext context) {

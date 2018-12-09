@@ -4,7 +4,6 @@
 
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_architecture_samples/flutter_architecture_samples.dart';
 import 'package:vanilla/models.dart';
@@ -27,23 +26,25 @@ class AddEditScreen extends StatefulWidget {
 }
 
 class _AddEditScreenState extends State<AddEditScreen> {
-  static final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   String _task;
   String _note;
 
   @override
   Widget build(BuildContext context) {
+    final localizations = ArchSampleLocalizations.of(context);
+    final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
-        title: Text(isEditing
-            ? ArchSampleLocalizations.of(context).editTodo
-            : ArchSampleLocalizations.of(context).addTodo),
+        title: Text(
+          isEditing ? localizations.editTodo : localizations.addTodo,
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Form(
-          key: formKey,
+          key: _formKey,
           autovalidate: false,
           onWillPop: () {
             return Future(() => true);
@@ -51,24 +52,25 @@ class _AddEditScreenState extends State<AddEditScreen> {
           child: ListView(
             children: [
               TextFormField(
-                initialValue: widget.todo != null ? widget.todo.task : '',
+                initialValue: isEditing ? widget.todo.task : '',
                 key: ArchSampleKeys.taskField,
-                autofocus: isEditing ? false : true,
+                autofocus: !isEditing,
                 style: Theme.of(context).textTheme.headline,
                 decoration: InputDecoration(
-                    hintText: ArchSampleLocalizations.of(context).newTodoHint),
-                validator: (val) => val.trim().isEmpty
-                    ? ArchSampleLocalizations.of(context).emptyTodoError
-                    : null,
+                  hintText: localizations.newTodoHint,
+                ),
+                validator: (val) {
+                  return val.trim().isEmpty ? localizations.emptyTodoError : null;
+                },
                 onSaved: (value) => _task = value,
               ),
               TextFormField(
-                initialValue: widget.todo != null ? widget.todo.note : '',
+                initialValue: isEditing ? widget.todo.note : '',
                 key: ArchSampleKeys.noteField,
                 maxLines: 10,
-                style: Theme.of(context).textTheme.subhead,
+                style: textTheme.subhead,
                 decoration: InputDecoration(
-                  hintText: ArchSampleLocalizations.of(context).notesHint,
+                  hintText: localizations.notesHint,
                 ),
                 onSaved: (value) => _note = value,
               )
@@ -77,33 +79,26 @@ class _AddEditScreenState extends State<AddEditScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-          key: isEditing
-              ? ArchSampleKeys.saveTodoFab
-              : ArchSampleKeys.saveNewTodo,
-          tooltip: isEditing
-              ? ArchSampleLocalizations.of(context).saveChanges
-              : ArchSampleLocalizations.of(context).addTodo,
-          child: Icon(isEditing ? Icons.check : Icons.add),
-          onPressed: () {
-            final form = formKey.currentState;
-            if (form.validate()) {
-              form.save();
+        key: isEditing ? ArchSampleKeys.saveTodoFab : ArchSampleKeys.saveNewTodo,
+        tooltip: isEditing ? localizations.saveChanges : localizations.addTodo,
+        child: Icon(isEditing ? Icons.check : Icons.add),
+        onPressed: () {
+          if (_formKey.currentState.validate()) {
+            _formKey.currentState.save();
 
-              final task = _task;
-              final note = _note;
-
-              if (isEditing) {
-                widget.updateTodo(widget.todo, task: task, note: note);
-              } else {
-                widget.addTodo(Todo(
-                  task,
-                  note: note,
-                ));
-              }
-
-              Navigator.pop(context);
+            if (isEditing) {
+              widget.updateTodo(widget.todo, task: _task, note: _note);
+            } else {
+              widget.addTodo(Todo(
+                _task,
+                note: _note,
+              ));
             }
-          }),
+
+            Navigator.pop(context);
+          }
+        },
+      ),
     );
   }
 
