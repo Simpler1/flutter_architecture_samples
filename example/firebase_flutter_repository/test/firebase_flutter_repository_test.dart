@@ -8,8 +8,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_flutter_repository/reactive_todos_repository.dart';
 import 'package:firebase_flutter_repository/user_repository.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:test/test.dart';
 import 'package:todos_repository/todos_repository.dart';
 
 main() {
@@ -19,11 +19,11 @@ main() {
       final repository = FirebaseUserRepository(auth);
 
       when(auth.signInAnonymously())
-          .thenReturn(new Future.value(MockFirebaseUser()));
+          .thenAnswer((_) => Future.value(MockFirebaseUser()));
 
       final entity = await repository.login();
 
-      expect(entity, isInstanceOf<UserEntity>());
+      expect(entity, TypeMatcher<UserEntity>());
     });
   });
 
@@ -71,7 +71,7 @@ main() {
 
       when(firestore.collection(FirestoreReactiveTodosRepository.path))
           .thenReturn(collection);
-      when(collection.snapshots()).thenReturn(snapshots);
+      when(collection.snapshots()).thenAnswer((_) => snapshots);
       when(snapshot.documents).thenReturn([document]);
       when(document.documentID).thenReturn(todo.id);
 
@@ -91,8 +91,8 @@ main() {
           .thenReturn(collection);
       when(collection.document(todoA)).thenReturn(documentA);
       when(collection.document(todoB)).thenReturn(documentB);
-      when(documentA.delete()).thenReturn(Future.value());
-      when(documentB.delete()).thenReturn(Future.value());
+      when(documentA.delete()).thenAnswer((_) => Future.value());
+      when(documentB.delete()).thenAnswer((_) => Future.value());
 
       await repository.deleteTodo([todoA, todoB]);
 

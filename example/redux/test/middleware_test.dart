@@ -26,7 +26,7 @@ main() {
         TodoEntity("Moin", "1", "Note", false),
       ];
 
-      when(repository.loadTodos()).thenReturn(Future.value(todos));
+      when(repository.loadTodos()).thenAnswer((_) => Future.value(todos));
 
       store.dispatch(LoadTodosAction());
 
@@ -50,7 +50,7 @@ main() {
       store.dispatch(UpdateTodoAction("", Todo("")));
       store.dispatch(DeleteTodoAction(""));
 
-      verify(repository.saveTodos(typed(any))).called(7);
+      verify(repository.saveTodos(any)).called(7);
     });
   });
 }

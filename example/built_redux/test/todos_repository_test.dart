@@ -33,7 +33,7 @@ main() {
       // We'll use our mock throughout the tests to set certain conditions. In
       // this first test, we want to mock out our file storage to return a
       // list of Todos that we define here in our test!
-      when(fileStorage.loadTodos()).thenReturn(Future.value(todos));
+      when(fileStorage.loadTodos()).thenAnswer((_) => Future.value(todos));
 
       expect(todosService.loadTodos(), completion(todos));
       verifyNever(webService.fetchTodos());
@@ -52,8 +52,9 @@ main() {
 
       // In this instance, we'll ask our Mock to throw an error. When it does,
       // we expect the web service to be called instead.
-      when(fileStorage.loadTodos()).thenReturn("");
-      when(webService.fetchTodos()).thenReturn(Future.value(todos));
+      when(fileStorage.loadTodos())
+          .thenAnswer((_) => Future<List<Todo>>.error("Oh no"));
+      when(webService.fetchTodos()).thenAnswer((_) => Future.value(todos));
 
       // We check that the correct todos were returned, and that the
       // webService.fetchTodos method was in fact called!
@@ -72,8 +73,9 @@ main() {
       );
       final todos = [Todo("Task")];
 
-      when(fileStorage.loadTodos()).thenAnswer((_) => Future.error("Oh no"));
-      when(webService.fetchTodos()).thenReturn(Future.value(todos));
+      when(fileStorage.loadTodos())
+          .thenAnswer((_) => Future<List<Todo>>.error("Oh no"));
+      when(webService.fetchTodos()).thenAnswer((_) => Future.value(todos));
 
       expect(await todosService.loadTodos(), todos);
       verify(webService.fetchTodos());
@@ -88,8 +90,8 @@ main() {
       );
       final todos = [Todo("Task")];
 
-      when(fileStorage.saveTodos(todos)).thenReturn(Future.value("Cool"));
-      when(webService.postTodos(todos)).thenReturn(Future.value("Beans."));
+      when(fileStorage.saveTodos(todos)).thenAnswer((_) async => null);
+      when(webService.postTodos(todos)).thenAnswer((_) async => true);
 
       // In this case, we just want to verify we're correctly persisting to all
       // the storage mechanisms we care about.

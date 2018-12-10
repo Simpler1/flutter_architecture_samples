@@ -11,6 +11,8 @@ import 'package:test/test.dart';
 
 class MockTodosInteractor extends Mock implements TodosInteractor {}
 
+class MockView extends Object with DetailView {}
+
 void main() {
   group('MviTodo', () {
     group('Presenter', () {
@@ -18,11 +20,12 @@ void main() {
         final interactor = MockTodosInteractor();
         final todo = Todo("Hallo");
 
-        when(interactor.todo(todo.id)).thenReturn(Stream.fromIterable([todo]));
+        when(interactor.todo(todo.id))
+            .thenAnswer((_) => Stream.fromIterable([todo]));
 
         final presenter = DetailPresenter(
           id: todo.id,
-          view: DetailView(),
+          view: MockView(),
           interactor: interactor,
         );
 
@@ -32,9 +35,10 @@ void main() {
       test('should send deletions to the interactor', () async {
         final interactor = MockTodosInteractor();
         final todo = Todo("Hallo");
-        final view = DetailView();
+        final view = MockView();
 
-        when(interactor.todo(todo.id)).thenReturn(Stream.fromIterable([todo]));
+        when(interactor.todo(todo.id))
+            .thenAnswer((_) => Stream.fromIterable([todo]));
 
         final presenter = DetailPresenter(
           id: todo.id,
@@ -50,9 +54,10 @@ void main() {
       test('should send updates to the interactor', () async {
         final interactor = MockTodosInteractor();
         final todo = Todo("Hallo");
-        final view = DetailView();
+        final view = MockView();
 
-        when(interactor.todo(todo.id)).thenReturn(Stream.fromIterable([todo]));
+        when(interactor.todo(todo.id))
+            .thenAnswer((_) => Stream.fromIterable([todo]));
 
         final presenter = DetailPresenter(
           id: todo.id,
@@ -68,7 +73,7 @@ void main() {
 
     group('View', () {
       test('should clean up after itself', () async {
-        final view = DetailView();
+        final view = MockView();
 
         view.tearDown();
 

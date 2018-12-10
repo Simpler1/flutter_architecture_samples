@@ -15,9 +15,6 @@ import 'package:redux_sample/presentation/home_screen.dart';
 import 'package:redux_sample/reducers/app_state_reducer.dart';
 
 void main() {
-  // ignore: deprecated_member_use
-  MaterialPageRoute.debugEnableFadingRoutes = true;
-
   runApp(ReduxApp());
 }
 
@@ -41,10 +38,9 @@ class ReduxApp extends StatelessWidget {
         ],
         routes: {
           ArchSampleRoutes.home: (context) {
-            return StoreBuilder<AppState>(
-              onInit: (store) => store.dispatch(LoadTodosAction()),
-              builder: (context, store) {
-                return HomeScreen();
+            return HomeScreen(
+              onInit: () {
+                StoreProvider.of<AppState>(context).dispatch(LoadTodosAction());
               },
             );
           },
