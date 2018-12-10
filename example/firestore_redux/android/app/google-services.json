@@ -1,35 +1,35 @@
 {
   "project_info": {
-    "project_number": "xxxxxxxxxxxx",
-    "firebase_url": "https://xxxxxxxx-xxxx-xxxxx.firebaseio.com",
-    "project_id": "xxxxxxxx-xxxx-xxxxx",
-    "storage_bucket": "xxxxxxxx-xxxx-xxxxx.appspot.com"
+    "project_number": "65428127494",
+    "firebase_url": "https://todo-6f826.firebaseio.com",
+    "project_id": "todo-6f826",
+    "storage_bucket": "todo-6f826.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:111111111111:android:1111111111111111",
+        "mobilesdk_app_id": "1:65428127494:android:59ad2b931a4507c7",
         "android_client_info": {
-          "package_name": "com.yourcompany.fireredux"
+          "package_name": "com.routineapps.todo"
         }
       },
       "oauth_client": [
         {
-          "client_id": "xxxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.apps.googleusercontent.com",
+          "client_id": "65428127494-eeqcl5898le9lae77q1t1o5qspnr7s4c.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.yourcompany.fireredux",
-            "certificate_hash": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+            "package_name": "com.routineapps.todo",
+            "certificate_hash": "f9141435859454c273a93d7de6855340c906b3bd"
           }
         },
         {
-          "client_id": "xxxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.apps.googleusercontent.com",
+          "client_id": "65428127494-7j4gglec13bvsnjot3accafic3sqoidf.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+          "current_key": "AIzaSyBOb6x6esExcIzIsiSRGPkW1kTyc6AFsy4"
         }
       ],
       "services": {
@@ -40,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "xxxxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.apps.googleusercontent.com",
+              "client_id": "65428127494-7j4gglec13bvsnjot3accafic3sqoidf.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

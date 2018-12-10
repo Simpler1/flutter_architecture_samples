@@ -1,4 +1,4 @@
-package com.yourcompany.fireredux;
+package com.routineapps.todo;
 
 import android.os.Bundle;
 
